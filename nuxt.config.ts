@@ -1,5 +1,25 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2024-11-01',
-  devtools: { enabled: true }
+
+  devtools: { enabled: true },
+
+  modules: [
+    '@nuxtjs/supabase',
+    '@ant-design-vue/nuxt',
+    '@nuxtjs/tailwindcss'
+  ],
+
+  srcDir: 'src/',
+
+  supabase: {
+    redirectOptions: {
+      login: '/login',
+      callback: '/confirm',
+      include: undefined,
+      exclude: [],
+      cookieRedirect: false,
+    }
+  },
+
+  compatibilityDate: '2024-11-01'
 })
