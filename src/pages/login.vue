@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { h } from 'vue';
+import { GoogleOutlined, GithubOutlined } from '@ant-design/icons-vue'
 
 definePageMeta({
   layout: 'white-board'
@@ -6,16 +8,30 @@ definePageMeta({
 
 const supabase = useSupabaseClient()
 const email = ref('')
+const password = ref('')
 const emailSending = ref(false) // Is Email Sending
 const otpSent = ref(false) // Is OTP Email Sent Successfully
 const errorInfo = ref('') // Error Message
+
+const signInWithEmail = async () => {
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: email.value,
+    password: password.value
+  })
+  if (error) {
+    console.log(error)
+    errorInfo.value = error.message
+  } else {
+    navigateTo('/')
+  }
+}
 
 const signInWithOtp = async () => {
   emailSending.value = true
   const { error } = await supabase.auth.signInWithOtp({
     email: email.value,
     options: {
-      emailRedirectTo: 'http://localhost:3000/confirm',
+      emailRedirectTo: '/confirm',
     }
   })
   if (error) {
@@ -30,6 +46,36 @@ const signInWithOtp = async () => {
   }
 }
 
+const signInWithGoogle = async () => {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      queryParams: {
+        access_type: 'offline',
+        prompt: 'consent',
+      },
+    }
+  })
+  if (error) {
+    console.log(error)
+  } else {
+    console.log(data)
+  }
+}
+
+const signInWithGithub = async () => {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'github',
+    options: {
+      redirectTo: 'https://localhost:3000/auth/callback',
+    }
+  })
+  if (error) {
+    console.log(error)
+  } else {
+    console.log(data)
+  }
+}
 
 </script>
 
@@ -47,20 +93,35 @@ const signInWithOtp = async () => {
         <div class="flex items-center gap-2 w-full pb-8">
           <span class="text-xl font-bold">FlexType</span>
         </div>
+        <!--Login Form-->
         <div class="flex flex-col items-start justify-center gap-3">
           <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email:</label>
           <input id="email" v-model="email" type="email"
             class="text-sm leading-5 w-full py-2 px-3 border-2 text-slate-500 rounded" name="email">
-          <button @click="signInWithOtp"
+          <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password:</label>
+          <input id="password" v-model="password" type="password"
+            class="text-sm leading-5 w-full py-2 px-3 border-2 text-slate-500 rounded" name="password">
+          <button @click="signInWithEmail"
             class="text-sm text-center leading-5 w-full py-2 text-white bg-main font-bold rounded hover:shadow-lg transition-all">
-            Login With OTP
+            Login
           </button>
+          <div v-if="otpSent" class="flex gap-2 pt-6">
+            <span>OTP Email is sent to your email box, please check your email.</span>
+          </div>
+          <div v-if="errorInfo" class="flex gap-2 pt-6 text-red-400">
+            <span>{{ errorInfo }}</span>
+          </div>
         </div>
-        <div v-if="otpSent" class="flex gap-2 pt-6">
-          <span>OTP Email is sent to your email box, please check your email.</span>
-        </div>
-        <div v-if="errorInfo" class="flex gap-2 pt-6 text-red-400">
-          <span>{{ errorInfo }}</span>
+        <!--SSO-->
+        <div class="mt-6 flex flex-row gap-4">
+          <button class="aspect-square rounded-full w-9 h-9 flex items-center justify-center bg-main text-white text-xl"
+            @click="signInWithGoogle">
+            <GoogleOutlined />
+          </button>
+          <button class="aspect-square rounded-full w-9 h-9 flex items-center justify-center bg-main text-white text-xl"
+            @clink="signInWithGithub">
+            <GithubOutlined />
+          </button>
         </div>
       </div>
     </div>

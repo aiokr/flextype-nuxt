@@ -1,0 +1,75 @@
+{
+  "id": "8f92ab24-6612-4819-8233-5c606fd1a008",
+  "aud": "authenticated",
+  "role": "authenticated",
+  "email": "aiokr@outlook.com",
+  "email_confirmed_at": "2024-05-08T11:43:00.975673Z",
+  "phone": "",
+  "confirmed_at": "2024-05-08T11:43:00.975673Z",
+  "recovery_sent_at": "2024-12-19T00:35:37.785192Z",
+  "last_sign_in_at": "2024-12-19T04:22:56.246917054Z",
+  "app_metadata": {
+    "provider": "email",
+    "providers": [
+      "email",
+      "github"
+    ]
+  },
+  "user_metadata": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/25877104?v=4",
+    "email": "hiaiokr@gmail.com",
+    "email_verified": true,
+    "full_name": "aiokr",
+    "iss": "https://api.github.com",
+    "name": "aiokr",
+    "phone_verified": false,
+    "preferred_username": "aiokr",
+    "provider_id": "25877104",
+    "sub": "25877104",
+    "user_name": "aiokr"
+  },
+  "identities": [
+    {
+      "identity_id": "7741cab5-1160-4caa-8cb3-81be90f7594c",
+      "id": "8f92ab24-6612-4819-8233-5c606fd1a008",
+      "user_id": "8f92ab24-6612-4819-8233-5c606fd1a008",
+      "identity_data": {
+        "email": "aiokr@outlook.com",
+        "email_verified": false,
+        "phone_verified": false,
+        "sub": "8f92ab24-6612-4819-8233-5c606fd1a008"
+      },
+      "provider": "email",
+      "last_sign_in_at": "2024-05-08T11:43:00.968883Z",
+      "created_at": "2024-05-08T11:43:00.968956Z",
+      "updated_at": "2024-05-08T11:43:00.968956Z",
+      "email": "aiokr@outlook.com"
+    },
+    {
+      "identity_id": "68259101-5bf6-44a6-831f-8a1e3a078ccc",
+      "id": "25877104",
+      "user_id": "8f92ab24-6612-4819-8233-5c606fd1a008",
+      "identity_data": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/25877104?v=4",
+        "email": "hiaiokr@gmail.com",
+        "email_verified": true,
+        "full_name": "aiokr",
+        "iss": "https://api.github.com",
+        "name": "aiokr",
+        "phone_verified": false,
+        "preferred_username": "aiokr",
+        "provider_id": "25877104",
+        "sub": "25877104",
+        "user_name": "aiokr"
+      },
+      "provider": "github",
+      "last_sign_in_at": "2024-05-14T15:05:53.329802Z",
+      "created_at": "2024-05-14T15:05:53.329852Z",
+      "updated_at": "2024-05-14T15:05:53.329852Z",
+      "email": "hiaiokr@gmail.com"
+    }
+  ],
+  "created_at": "2024-05-08T11:43:00.957665Z",
+  "updated_at": "2024-12-19T04:22:56.249204Z",
+  "is_anonymous": false
+}
