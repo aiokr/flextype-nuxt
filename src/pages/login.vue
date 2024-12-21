@@ -7,11 +7,14 @@ definePageMeta({
 })
 
 const supabase = useSupabaseClient()
+const { auth } = useSupabaseClient()
 const email = ref('')
 const password = ref('')
 const emailSending = ref(false) // Is Email Sending
 const otpSent = ref(false) // Is OTP Email Sent Successfully
 const errorInfo = ref('') // Error Message
+
+const redirectTo = `http://localhost:3000/confirm`
 
 const signInWithEmail = async () => {
   const { data, error } = await supabase.auth.signInWithPassword({
@@ -43,37 +46,6 @@ const signInWithOtp = async () => {
   else {
     otpSent.value = true
     emailSending.value = false
-  }
-}
-
-const signInWithGoogle = async () => {
-  const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: 'google',
-    options: {
-      queryParams: {
-        access_type: 'offline',
-        prompt: 'consent',
-      },
-    }
-  })
-  if (error) {
-    console.log(error)
-  } else {
-    console.log(data)
-  }
-}
-
-const signInWithGithub = async () => {
-  const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: 'github',
-    options: {
-      redirectTo: 'https://localhost:3000/auth/callback',
-    }
-  })
-  if (error) {
-    console.log(error)
-  } else {
-    console.log(data)
   }
 }
 
@@ -114,12 +86,14 @@ const signInWithGithub = async () => {
         </div>
         <!--SSO-->
         <div class="mt-6 flex flex-row gap-4">
+          <!--
           <button class="aspect-square rounded-full w-9 h-9 flex items-center justify-center bg-main text-white text-xl"
             @click="signInWithGoogle">
             <GoogleOutlined />
           </button>
+          -->
           <button class="aspect-square rounded-full w-9 h-9 flex items-center justify-center bg-main text-white text-xl"
-            @clink="signInWithGithub">
+            @click="auth.signInWithOAuth({ provider: 'github', options: { redirectTo } })">
             <GithubOutlined />
           </button>
         </div>

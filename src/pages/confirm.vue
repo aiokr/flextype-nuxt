@@ -3,13 +3,15 @@ const user = useSupabaseUser()
 
 watch(user, () => {
   if (user.value) {
-      // Redirect to protected page
-      console.log(user.value)
-      return navigateTo('/')
+    return navigateTo('/')
   }
 }, { immediate: true })
 </script>
 
 <template>
-  <div>Waiting for login...</div>
+  <div>
+    <p>
+      Redirecting...
+    </p>
+  </div>
 </template>
